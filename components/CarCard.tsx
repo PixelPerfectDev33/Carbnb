@@ -1,10 +1,11 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import { useThemeContext } from "@/context/ThemeContext";
-import { useI18nContext } from "@/context/I18nContext";
+import { useI18n } from "@/context/I18nContext";
 
 export default function CarCard({ car }: { car: any }) {
   const { theme } = useThemeContext();
-  const { isRTL } = useI18nContext();
+  const { currentLang } = useI18n();
+  const isRTL = currentLang === 'ar';
 
   return (
     <View style={styles.card}>
