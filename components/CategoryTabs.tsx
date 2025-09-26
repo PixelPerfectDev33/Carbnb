@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, I18nManager } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  I18nManager,
+} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useThemeContext } from "@/context/ThemeContext";
+import { useI18n } from "@/context/I18nContext";
 
 type Category = {
   label: string;
@@ -15,6 +22,8 @@ export default function CategoryTabs({
 }) {
   const { theme } = useThemeContext();
   const [active, setActive] = useState(0);
+  const { currentLang } = useI18n();
+  const isRTL = currentLang === "ar";
 
   return (
     <View style={styles.container}>
@@ -35,13 +44,12 @@ export default function CategoryTabs({
               name={cat.icon as any}
               size={16}
               color={theme === "dark" ? "#fff" : "#000"}
-              style={[
-                styles.icon,
-                I18nManager.isRTL && styles.iconRTL
-              ]}
+              style={[styles.icon, I18nManager.isRTL && styles.iconRTL]}
             />
           )}
-          <Text style={[styles.text, { color: theme === "dark" ? "#fff" : "#000" }]}>
+          <Text
+            style={[styles.text, { color: theme === "dark" ? "#fff" : "#000" }]}
+          >
             {cat.label}
           </Text>
         </TouchableOpacity>
@@ -51,7 +59,7 @@ export default function CategoryTabs({
 }
 
 const styles = StyleSheet.create({
-  container: { 
+  container: {
     flexDirection: "row",
     marginHorizontal: 16,
   },
@@ -68,6 +76,6 @@ const styles = StyleSheet.create({
     // Additional RTL-specific icon styles if needed
   },
   text: {
-    textAlign: 'left',
+    textAlign: "left",
   },
 });
