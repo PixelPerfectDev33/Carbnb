@@ -26,12 +26,13 @@ export default function CategoryTabs({
   const isRTL = currentLang === "ar";
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isRTL && styles.containerRTL]}>
       {categories.map((cat, index) => (
         <TouchableOpacity
           key={index}
           style={[
             styles.tab,
+            isRTL && styles.tabRTL,
             active === index && {
               borderBottomColor: theme === "dark" ? "#fff" : "#000",
               borderBottomWidth: 2,
@@ -44,11 +45,15 @@ export default function CategoryTabs({
               name={cat.icon as any}
               size={16}
               color={theme === "dark" ? "#fff" : "#000"}
-              style={[styles.icon, I18nManager.isRTL && styles.iconRTL]}
+              style={[styles.icon, isRTL && styles.iconRTL]}
             />
           )}
           <Text
-            style={[styles.text, { color: theme === "dark" ? "#fff" : "#000" }]}
+            style={[
+              styles.text,
+              isRTL && styles.textRTL,
+              { color: theme === "dark" ? "#fff" : "#000" },
+            ]}
           >
             {cat.label}
           </Text>
@@ -59,15 +64,23 @@ export default function CategoryTabs({
 }
 
 const styles = StyleSheet.create({
-  container: { 
+  container: {
     flexDirection: "row",
     marginHorizontal: 16,
+  },
+  containerRTL: {
+    flexDirection: "row-reverse",
   },
   tab: {
     flexDirection: "row",
     alignItems: "center",
     marginRight: 20,
     paddingVertical: 8,
+  },
+  tabRTL: {
+    marginRight: 0,
+    marginLeft: 20,
+    flexDirection: "row-reverse",
   },
   icon: {
     marginRight: 6,
@@ -78,5 +91,8 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: "left",
+  },
+  textRTL: {
+    textAlign: "right",
   },
 });

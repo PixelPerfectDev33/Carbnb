@@ -22,7 +22,7 @@ i18n.use(initReactI18next).init({
     fr: { translation: fr },
     ar: { translation: ar },
   },
-  lng: Localization.locale && Localization.locale.startsWith ? Localization.locale.split("-")[0] : "en",
+  lng: "en",
   fallbackLng: "en",
   interpolation: { escapeValue: false },
 });
