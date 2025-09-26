@@ -24,7 +24,8 @@ const cars = [
 
 export default function Home() {
   const { theme } = useThemeContext();
-  const { t } = useI18n();
+  const { t, currentLang } = useI18n();
+  const isRTL = currentLang === 'ar';
 
   return (
     <View
@@ -60,7 +61,12 @@ export default function Home() {
           {t("featured")}
         </Text>
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView 
+          horizontal 
+          showsHorizontalScrollIndicator={false}
+          style={[isRTL && { transform: [{ scaleX: -1 }] }]}
+          contentContainerStyle={[isRTL && { transform: [{ scaleX: -1 }] }]}
+        >
           {cars.map((car) => (
             <CarCard key={car.id} car={car} />
           ))}
