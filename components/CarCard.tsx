@@ -8,7 +8,7 @@ export default function CarCard({ car }: { car: any }) {
   const isRTL = currentLang === 'ar';
 
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, isRTL && styles.cardRTL]}>
       <Image source={{ uri: car.image }} style={styles.image} />
       <Text
         style={[
@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#f9f9f9",
     borderRadius: 12,
     padding: 10,
+  },
+  cardRTL: {
+    alignSelf: 'flex-start',
   },
   image: {
     width: "100%",
