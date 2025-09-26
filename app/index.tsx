@@ -42,16 +42,14 @@ export default function Home() {
         />
 
         {/* 📌 Tabs with icons */}
-        <View style={[isRTL && { transform: [{ scaleX: -1 }] }]}>
-          <CategoryTabs
-            categories={[
-              { label: t("luxury"), icon: "car-sport-outline" },
-              { label: t("economy"), icon: "cash-outline" },
-              { label: t("suv"), icon: "car-outline" },
-              { label: t("truck"), icon: "bus-outline" },
-            ]}
-          />
-        </View>
+        <CategoryTabs
+          categories={[
+            { label: t("luxury"), icon: "car-sport-outline" },
+            { label: t("economy"), icon: "cash-outline" },
+            { label: t("suv"), icon: "car-outline" },
+            { label: t("truck"), icon: "bus-outline" },
+          ]}
+        />
 
         {/* 🏷️ Featured */}
         <Text
@@ -66,8 +64,6 @@ export default function Home() {
         <ScrollView 
           horizontal 
           showsHorizontalScrollIndicator={false}
-          style={[isRTL && { transform: [{ scaleX: -1 }] }]}
-          contentContainerStyle={[isRTL && { transform: [{ scaleX: -1 }] }]}
         >
           {cars.map((car) => (
             <CarCard key={car.id} car={car} />
