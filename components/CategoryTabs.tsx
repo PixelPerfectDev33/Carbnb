@@ -52,24 +52,22 @@ export default function CategoryTabs({
 
 const styles = StyleSheet.create({
   container: { 
-    flexDirection: I18nManager.isRTL ? "row-reverse" : "row",
+    flexDirection: "row",
     marginHorizontal: 16,
   },
   tab: {
-    flexDirection: I18nManager.isRTL ? "row-reverse" : "row",
+    flexDirection: "row",
     alignItems: "center",
-    marginRight: I18nManager.isRTL ? 0 : 20,
-    marginLeft: I18nManager.isRTL ? 20 : 0,
+    marginRight: 20,
     paddingVertical: 8,
   },
   icon: {
-    marginRight: I18nManager.isRTL ? 0 : 6,
-    marginLeft: I18nManager.isRTL ? 6 : 0,
+    marginRight: 6,
   },
   iconRTL: {
     // Additional RTL-specific icon styles if needed
   },
   text: {
-    textAlign: I18nManager.isRTL ? 'right' : 'left',
+    textAlign: 'left',
   },
 });
