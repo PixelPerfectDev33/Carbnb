@@ -59,7 +59,7 @@ export default function CategoryTabs({
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: { 
     flexDirection: "row",
     marginHorizontal: 16,
   },
@@ -73,7 +73,8 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   iconRTL: {
-    // Additional RTL-specific icon styles if needed
+    marginRight: 0,
+    marginLeft: 6,
   },
   text: {
     textAlign: "left",

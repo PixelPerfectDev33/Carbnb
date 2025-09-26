@@ -42,16 +42,14 @@ export default function Home() {
         />
 
         {/* 📌 Tabs with icons */}
-        <View>
-          <CategoryTabs
-            categories={[
-              { label: t("luxury"), icon: "car-sport-outline" },
-              { label: t("economy"), icon: "cash-outline" },
-              { label: t("suv"), icon: "car-outline" },
-              { label: t("truck"), icon: "bus-outline" },
-            ]}
-          />
-        </View>
+        <CategoryTabs
+          categories={[
+            { label: t("luxury"), icon: "car-sport-outline" },
+            { label: t("economy"), icon: "cash-outline" },
+            { label: t("suv"), icon: "car-outline" },
+            { label: t("truck"), icon: "bus-outline" },
+          ]}
+        />
 
         {/* 🏷️ Featured */}
         <Text
