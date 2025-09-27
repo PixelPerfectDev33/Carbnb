@@ -1,38 +1,80 @@
 import { useState } from "react";
-import { View, TextInput, Button, Text } from "react-native";
-import { supabase } from "../../lib/supabase";
+import { View, Text, TextInput, Button, Alert } from "react-native";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "expo-router";
 
-export default function LoginScreen() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const router = useRouter();
 
   const handleLogin = async () => {
-    const { error } = await supabase.auth.signInWithPassword({
+    setLoading(true);
+    setMessage(null);
+
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
-    if (error) setError(error.message);
+
+    setLoading(false);
+
+    if (error) {
+      setMessage(error.message); // show error
+    } else {
+      setMessage("✅ Login successful!");
+      router.push("/"); // redirect to homepage after login
+    }
   };
 
   return (
     <View style={{ padding: 20 }}>
-      <Text>Login</Text>
+      <Text style={{ fontSize: 24, marginBottom: 16 }}>Login</Text>
+
       <TextInput
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
-        style={{ borderWidth: 1, marginBottom: 10 }}
+        autoCapitalize="none"
+        style={{
+          borderWidth: 1,
+          padding: 10,
+          marginBottom: 12,
+          borderRadius: 6,
+        }}
       />
+
       <TextInput
         placeholder="Password"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
-        style={{ borderWidth: 1, marginBottom: 10 }}
+        style={{
+          borderWidth: 1,
+          padding: 10,
+          marginBottom: 12,
+          borderRadius: 6,
+        }}
       />
-      {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
-      <Button title="Login" onPress={handleLogin} />
+
+      <Button
+        title={loading ? "Logging in..." : "Login"}
+        onPress={handleLogin}
+      />
+
+      {message && (
+        <Text
+          style={{
+            marginTop: 16,
+            color: message.includes("✅") ? "green" : "red",
+          }}
+        >
+          {message}
+        </Text>
+      )}
     </View>
   );
 }

@@ -1,52 +1,61 @@
 import { useState } from "react";
-import { View, TextInput, Button, Text } from "react-native";
-import { supabase } from "../../lib/supabase";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "expo-router";
 
-export default function RegisterScreen() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("renter"); // renter or host
-  const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleRegister = async () => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    if (error) return setError(error.message);
-
-    if (data.user) {
-      await supabase.from("users").insert([
-        {
-          id: data.user.id,
-          role,
-          email,
-        },
-      ]);
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      Alert.alert("Error", error.message);
+    } else {
+      Alert.alert("Success", "Check your email to confirm your account.");
+      router.replace("/auth/login");
     }
   };
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text>Register</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Register</Text>
+
       <TextInput
         placeholder="Email"
+        style={styles.input}
+        autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
-        style={{ borderWidth: 1, marginBottom: 10 }}
       />
+
       <TextInput
         placeholder="Password"
+        style={styles.input}
         secureTextEntry
         value={password}
         onChangeText={setPassword}
-        style={{ borderWidth: 1, marginBottom: 10 }}
       />
-      <Button title="Register as Renter" onPress={() => setRole("renter")} />
-      <Button title="Register as Host" onPress={() => setRole("host")} />
-      {error ? <Text style={{ color: "red" }}>{error}</Text> : null}
+
       <Button title="Register" onPress={handleRegister} />
+
+      <Text style={styles.link} onPress={() => router.push("/auth/login")}>
+        Already have an account? Login
+      </Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: "center", padding: 20 },
+  title: { fontSize: 24, fontWeight: "bold", marginBottom: 20 },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+  },
+  link: { marginTop: 16, color: "blue", textAlign: "center" },
+});
