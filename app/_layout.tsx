@@ -3,6 +3,7 @@ import { useColorScheme } from "react-native";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { I18nProvider } from "@/context/I18nContext";
 import { useFonts } from 'expo-font'; 
+import { AuthProvider } from "@/context/AuthContext";
 
 // 1. Import all required Noto Sans weights
 import {
@@ -54,10 +55,17 @@ export default function RootLayout() {
   }
 
   return (
+    <AuthProvider>
     <ThemeProvider defaultScheme={scheme}>
       <I18nProvider>
-        <Stack screenOptions={{ headerShown: false }} />
+          <Stack 
+              screenOptions={{ 
+                  headerShown: false,
+                  animation: 'none', // 👈 This disables the sliding animation
+              }} 
+          />
       </I18nProvider>
     </ThemeProvider>
+    </AuthProvider>
   );
 }

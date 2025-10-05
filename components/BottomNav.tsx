@@ -1,3 +1,4 @@
+//components/BottomNav.tsx
 import { View, TouchableOpacity, Text, StyleSheet, I18nManager } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import { useThemeContext } from "@/context/ThemeContext";
@@ -92,7 +93,7 @@ export default function BottomNav() {
                         <TouchableOpacity
                             key={item.route}
                             style={styles.item}
-                            onPress={() => router.push(item.route)}
+                            onPress={() => router.navigate(item.route)}
                         >
                             <NavIcon 
                                 name={item.icon}
